@@ -481,7 +481,7 @@
   </xsl:template>
 
   
-  <xsl:template match="subtitle|aff|attrib" mode="jats2html">
+  <xsl:template match="subtitle | aff | attrib | license-p" mode="jats2html">
     <p class="{local-name()}">
       <xsl:call-template name="css:content"/>
     </p>
@@ -493,11 +493,13 @@
     </span>
   </xsl:template>
   
-  <xsl:template match="bio | permissions" mode="jats2html" >
+  <xsl:template match="bio | permissions | license" mode="jats2html" >
     <div class="{local-name()}">
       <xsl:call-template name="css:content"/>
     </div>      
   </xsl:template>
+  
+  <xsl:template match="license/@xlink:href" mode="jats2html"/>
   
   <xsl:template match="copyright-holder
                       |copyright-statement
