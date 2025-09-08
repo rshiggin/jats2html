@@ -2526,13 +2526,17 @@
       <xsl:apply-templates select="@srcpath, @xlink:href" mode="#current"/>
       <xsl:apply-templates select="." mode="class-att"/>
     </img>
-    <xsl:apply-templates select="* except alt-text" mode="#current"/>
+    <xsl:apply-templates select="* except (alt-text
+                                          |long-desc)" mode="#current"/>
   </xsl:template>
   
   <xsl:template name="jats2html:img-alt">
     <xsl:variable name="graphic-in-fig-pos" as="xs:integer"
                   select="(index-of(parent::fig/graphic/generate-id(), generate-id()), 1)[1]"/>
     <xsl:attribute name="alt" select="(alt-text, parent::fig/alt-text[$graphic-in-fig-pos], @xlink:title)[1]"/>
+    <xsl:if test="long-desc">
+      <xsl:attribute name="title" select="long-desc"/>
+    </xsl:if>
   </xsl:template>
   
   <xsl:template match="graphic[caption and not(parent::fig)][$xhtml-version eq '5.0']" mode="jats2html" priority="5">
